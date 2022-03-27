@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     matrix* B;
     matrix* C;
 
-    const int kMatrixSize = 4;
+    const int kMatrixSize = 1000;
 
     // Parse command line arguments
     while ((optchar = getopt(argc, argv, "upz")) != -1) {
@@ -116,6 +116,11 @@ int main(int argc, char** argv) {
             }
         }
     }
+    for (int i = 0; i < C->rows; i++) {
+        for (int j = 0; j < C->cols; j++) {
+            C->values[i][j] = 0;
+        }
+    }
 
     if (should_print) {
         printf("Matrix A: \n");
@@ -146,6 +151,10 @@ int main(int argc, char** argv) {
         double elapsed = tdiff(time1, time2);
         printf("Elapsed execution time: %f sec\n", elapsed);
     }
+
+    free_matrix(A);
+    free_matrix(B);
+    free_matrix(C);
 
     return 0;
 }
