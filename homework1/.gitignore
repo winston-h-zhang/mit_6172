@@ -1,4 +1,10 @@
+# dotfiles
+.vscode/**
+.buildmode
+
 # Object files
 **/*.o
 
 # Specific exacutables
+sizes
+matrix_multiply
