@@ -20,7 +20,6 @@
  * IN THE SOFTWARE.
  **/
 
-
 /**
  * Matrix Multiply
  *
@@ -39,9 +38,9 @@
 #define MATRIX_MULTIPLY_H_INCLUDED
 
 typedef struct {
-  int rows;
-  int cols;
-  int** values;
+    int rows;
+    int cols;
+    int** values;
 } matrix;
 
 // Multiply matrix A*B, store result in C.

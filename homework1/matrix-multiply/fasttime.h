@@ -30,28 +30,25 @@
 
 typedef uint64_t fasttime_t;
 
-
 // Return the current time.
-static inline fasttime_t gettime(void) {
-  return mach_absolute_time();
-}
+static inline fasttime_t gettime(void) { return mach_absolute_time(); }
 
 // Return the time different between the start and the end, as a float
 // in units of seconds.  This function does not need to be fast.
 // Implementation notes: See
 // https://developer.apple.com/library/mac/qa/qa1398/_index.html
 static inline double tdiff(fasttime_t start, fasttime_t end) {
-  static mach_timebase_info_data_t timebase;
-  int r = mach_timebase_info(&timebase);
-  assert(r == 0);
-  fasttime_t elapsed = end-start;
-  double ns = (double)elapsed * timebase.numer / timebase.denom;
-  return ns*1e-9;
+    static mach_timebase_info_data_t timebase;
+    int r = mach_timebase_info(&timebase);
+    assert(r == 0);
+    fasttime_t elapsed = end - start;
+    double ns = (double)elapsed * timebase.numer / timebase.denom;
+    return ns * 1e-9;
 }
 
 static inline unsigned int random_seed_from_clock(void) {
-  fasttime_t now = gettime();
-  return (now & 0xFFFFFFFF) + (now>>32);
+    fasttime_t now = gettime();
+    return (now & 0xFFFFFFFF) + (now >> 32);
 }
 
 #else  // LINUX
@@ -65,25 +62,25 @@ typedef struct timespec fasttime_t;
 
 // Return the current time.
 static inline fasttime_t gettime(void) {
-  struct timespec s;
+    struct timespec s;
 #ifdef NDEBUG
-  clock_gettime(CLOCK_MONOTONIC, &s);
+    clock_gettime(CLOCK_MONOTONIC, &s);
 #else
-  int r = clock_gettime(CLOCK_MONOTONIC, &s);
-  assert(r == 0);
+    int r = clock_gettime(CLOCK_MONOTONIC, &s);
+    assert(r == 0);
 #endif
-  return s;
+    return s;
 }
 
 // Return the time different between the start and the end, as a float
 // in units of seconds.  This function does not need to be fast.
 static inline double tdiff(fasttime_t start, fasttime_t end) {
-  return end.tv_sec - start.tv_sec + 1e-9*(end.tv_nsec - start.tv_nsec);
+    return end.tv_sec - start.tv_sec + 1e-9 * (end.tv_nsec - start.tv_nsec);
 }
 
 static inline unsigned int random_seed_from_clock(void) {
-  fasttime_t now = gettime();
-  return now.tv_sec + now.tv_nsec;
+    fasttime_t now = gettime();
+    return now.tv_sec + now.tv_nsec;
 }
 
 // Poison these symbols to help find portability problems.

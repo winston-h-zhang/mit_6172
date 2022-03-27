@@ -23,8 +23,8 @@
 #ifndef BITARRAY_H
 #define BITARRAY_H
 
-#include <sys/types.h>
 #include <stdbool.h>
+#include <sys/types.h>
 
 // ********************************* Types **********************************
 
@@ -52,8 +52,7 @@ void bitarray_randfill(bitarray_t* const bitarray);
 bool bitarray_get(const bitarray_t* const bitarray, const size_t bit_index);
 
 // Indexes into a bit array, setting the bit at the specified zero-based index.
-void bitarray_set(bitarray_t* const bitarray,
-                  const size_t bit_index,
+void bitarray_set(bitarray_t* const bitarray, const size_t bit_index,
                   const bool value);
 
 // Rotates a subarray.
@@ -80,9 +79,7 @@ void bitarray_set(bitarray_t* const bitarray,
 // bitarray_rotate(ba, 2, 5, 2) rotates the third through seventh
 // (inclusive) bits right two places.  After the rotation, ba contains the
 // byte 0b10110100.
-void bitarray_rotate(bitarray_t* const bitarray,
-                     const size_t bit_offset,
-                     const size_t bit_length,
-                     const ssize_t bit_right_amount);
+void bitarray_rotate(bitarray_t* const bitarray, const size_t bit_offset,
+                     const size_t bit_length, const ssize_t bit_right_amount);
 
 #endif  // BITARRAY_H
