@@ -588,7 +588,7 @@ class _CppLintState(object):
 
     def PrintErrorCounts(self):
         """Print a summary of errors by category, and the total."""
-        for category, count in list(self.errors_by_category.items()):
+        for category, count in self.errors_by_category.items():
             category_color = bcolors.FAIL if count else bcolors.OKBLUE
             sys.stderr.write(bcolors.color('Category \'%s\' errors found: %d\n' %
                                            (category, count), category_color))
@@ -1192,7 +1192,7 @@ def CheckForUnicodeReplacementCharacters(filename, lines, error):
       error: The function to call with any errors found.
     """
     for linenum, line in enumerate(lines):
-        if '\\ufffd' in line:
+        if '\ufffd' in line:
             error(filename, linenum, 'readability/utf8', 5,
                   'Line contains invalid UTF-8 (or Unicode replacement character).')
 
